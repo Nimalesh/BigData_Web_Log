@@ -7,21 +7,6 @@ This project implements a scalable, real-time web log analytics pipeline using m
 
 ---
 
-## Table of Contents
-
-- [Project Objectives](#project-objectives)
-- [Architecture](#architecture)
-- [Tech Stack](#tech-stack)
-- [Setup & Installation](#setup--installation)
-- [Usage Guide](#usage-guide)
-- [Dashboarding](#dashboarding)
-- [Machine Learning/Alerting](#machine-learningalerting)
-- [Results](#results)
-- [Challenges & Solutions](#challenges--solutions)
-- [Future Work](#future-work)
-- [References](#references)
-
----
 
 ## Project Objectives
 
@@ -32,19 +17,8 @@ This project implements a scalable, real-time web log analytics pipeline using m
 
 ---
 
-## Architecture
 
-```mermaid
-graph TD
-    A[NASA Log Source] --> B[Apache NiFi]
-    B --> C[Kafka Broker]
-    C --> D[Spark Streaming]
-    D --> E[MongoDB (Docker)]
-    E --> F[Grafana Dashboard]
-    D --> G[ML/Alerting (Parallel)]
-```
-
-**Flow Explanation:**
+**Work flow:**
 - **NiFi:** Ingests raw web logs and preprocesses them.
 - **Kafka:** Acts as a scalable message queue.
 - **Spark:** Performs real-time analytics and streaming ETL.
@@ -165,8 +139,6 @@ Example Grafana panel queries and configuration can be found in `/dashboards/`.
 - [Apache Spark Docs](https://spark.apache.org/docs/latest/)
 - [MongoDB Docs](https://www.mongodb.com/docs/)
 - [Grafana Docs](https://grafana.com/docs/)
-- NASA HTTP Web Server Log Data: [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/227/nasa+access+log+jul+1995)
 
 ---
 
-> _For academic/collaborative use only. For questions or contributions, please open an issue or pull request._
