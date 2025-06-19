@@ -94,12 +94,32 @@ python spark_streaming_app.py
 
 ## Dashboarding
 
-- **Real-Time Dashboard:** Connects directly to Spark/memory or REST endpoint.
-- **Historical Dashboard:** Connects to MongoDB for persisted analytics.
+- **Real-Time Dashboard:**  
+  Grafana connects to your Flask backend (usually running at `http://localhost:5001`), which exposes real-time data and metrics via REST API endpoints. Grafana panels can query:
+  - `/query` for time series metrics (e.g., `msg_len`, `level_num`, `is_anomaly`)
+  - `/annotations` for overlaying error or event markers
+  - Other custom endpoints for stats and tables
 
-Example Grafana panel queries and configuration can be found in `/dashboards/`.
+- **Historical Dashboard:**  
+  Grafana uses the same Flask endpoints, which fetch persisted analytics and log data from MongoDB. This enables deep exploration of historical trends, anomaly spikes, and system activity over any custom time range.
+
+**How to use:**
+1. **Add the [JSON API (SimpleJson)](https://grafana.com/grafana/plugins/grafana-simple-json-datasource/) data source in Grafana**  
+   Set the URL to your backend, e.g., `http://localhost:5001`.
+2. **Create Panels and Dashboards by Querying:**
+    - `/query` – for time series metrics (`msg_len`, `level_num`, `is_anomaly`, etc.)
+    - `/tables/raw_logs` – for the latest logs (Table panel)
+    - `/tables/logs_by_level` – log levels (Bar/Pie chart)
+    - `/tables/anomaly_by_pid` – anomaly processes (Bar/Table)
+    - `/stats/total_logs` – total logs (Stat panel)
+    - `/stats/anomaly_count` – total anomalies (Stat panel)
+    - `/annotations` – to overlay error events
+
+**Example:**  
+Grafana configuration and sample panel setups are available in the project documentation or by visiting your Flask API at [http://localhost:5001](http://localhost:5001).
 
 ---
+
 
 ## Machine Learning/Alerting
 
