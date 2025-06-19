@@ -1,0 +1,13 @@
+kafka-python
+pyspark==3.5.1
+pymongo
+fastapi
+uvicorn
+requests
+pandas
+numpy
+redis
+joblib
+scikit-learn
+flask
+pytz

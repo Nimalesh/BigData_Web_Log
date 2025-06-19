@@ -1,0 +1,24 @@
+from pymongo import MongoClient
+import json
+import re
+
+# Connect to MongoDB
+client = MongoClient("mongodb://localhost:27017/")
+db = client["logdb"]
+collection = db["parsed_logs"]
+
+# Load and parse the log file
+with open("HDFS.log", "r") as file:
+    for line in file:
+        match = re.match(r'(\d+)\s+(\d+)\s+(\d+)\s+(\w+)\s+(.+)', line)
+        if match:
+            parsed = {
+                "date": match.group(1),
+                "time": match.group(2),
+                "pid": match.group(3),
+                "level": match.group(4),
+                "message": match.group(5)
+            }
+            collection.insert_one(parsed)
+
+print("Logs inserted into MongoDB")
