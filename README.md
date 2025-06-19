@@ -1,13 +1,6 @@
 
 # Big Data Real-Time Web Log Analytics Pipeline
 
-## Overview
-
-This project implements a scalable, real-time web log analytics pipeline using modern Big Data technologies. The system ingests, processes, analyzes, and visualizes NASA server logs, enabling both immediate insights (real-time) and historical analysis (batch). Machine Learning/alerting modules are integrated parallel to Spark for advanced analytics.
-
----
-
-
 ## Project Objectives
 
 - Build a robust, fault-tolerant data pipeline for large-scale log analytics.
@@ -74,12 +67,8 @@ _This spins up MongoDB and (optionally) other dependencies._
 - **Spark:** Run the Spark Streaming job:
 
 ```bash
-python spark_streaming_app.py
+python app.py
 ```
-
-- **ML/Alerting:** Start the ML process in parallel (see `/ml_alerting/`).
-
-- **Grafana:** Import provided dashboards and configure data sources for both real-time (e.g., directly from Spark or via REST) and stored (MongoDB) data.
 
 ---
 
@@ -103,10 +92,10 @@ python spark_streaming_app.py
 - **Historical Dashboard:**  
   Grafana uses the same Flask endpoints, which fetch persisted analytics and log data from MongoDB. This enables deep exploration of historical trends, anomaly spikes, and system activity over any custom time range.
 
-**How to use:**
-1. **Add the [JSON API (SimpleJson)](https://grafana.com/grafana/plugins/grafana-simple-json-datasource/) data source in Grafana**  
-   Set the URL to your backend, e.g., `http://localhost:5001`.
-2. **Create Panels and Dashboards by Querying:**
+**Setup:**
+1. **Added the [JSON API (SimpleJson)] data source in Grafana**  
+   Exposed flask api from your backend - `http://localhost:5001`.
+2. **Created Panels and Dashboards by Querying:**
     - `/query` – for time series metrics (`msg_len`, `level_num`, `is_anomaly`, etc.)
     - `/tables/raw_logs` – for the latest logs (Table panel)
     - `/tables/logs_by_level` – log levels (Bar/Pie chart)
@@ -115,16 +104,13 @@ python spark_streaming_app.py
     - `/stats/anomaly_count` – total anomalies (Stat panel)
     - `/annotations` – to overlay error events
 
-**Example:**  
-Grafana configuration and sample panel setups are available in the project documentation or by visiting your Flask API at [http://localhost:5001](http://localhost:5001).
-
 ---
 
 
 ## Machine Learning/Alerting
 
-- ML models can be trained on historical data (batch) or streaming data (real-time).
-- Alerts (anomaly detection, outlier detection) are generated in real-time and can be pushed to dashboards, email, or other systems.
+- ML models can be trained on historical data (batch).
+- Alerts (anomaly detection, outlier detection) are generated in real-time and can be pushed to dashboards.
 
 ---
 
